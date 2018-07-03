@@ -1,2 +1,2 @@
 # Spark
-Social network ni scala/kafka
+Social network in scala/kafka
