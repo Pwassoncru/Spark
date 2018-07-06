@@ -1,4 +1,5 @@
 
+import java.time
 import org.apache.kafka.clients.producer
 
 
@@ -12,6 +13,7 @@ object API {
   def create_user(id : String, nickname : String) = {
     val user = User(
       id,
+      Instant.now(),
       "https://test",
       nickname,
       false,
@@ -25,6 +27,7 @@ object API {
   def create_post(id : String, userId : String, text : String) = {
     val post = Post(
       id,
+      Instant.now(),
       userId,
       "https://test",
       text,
@@ -35,6 +38,16 @@ object API {
     producer.send(new ProducerRecord("posts", null, post.id, postCsv)).get()
   }
 
-  def create_message(userId : String, targetId : String, text : String) = {
+  def create_message(messageId : String, userId : String, targetId : String, text : String) = {
+    val message = Message(
+      id,
+      Instant.now(),
+      userId,
+      targetId,
+      text)
+
+    val messageCsv = MessageToCsv(message)
+
+    producer.send(new ProducerRecord("messages", null, message.id, messageCsv))
   }
 }
