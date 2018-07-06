@@ -1,9 +1,17 @@
-import java.time.Instant
-import java.net.URI
+object UserUtils {
+  case class User(
+    id : String,
+    date : Instant,
+    image : String,
+    nickname : String,
+    verified : Boolean,
+    deleted : Boolean)
 
-case class User(id : String, updatedOn : Instant, image : URI, nickname : String, verified : Boolean, deleted : Boolean)
-
-object User
-{
-
+  def UserToCsv(user : String) = 
+    user.id + "," +
+    user.date.toString + ","
+    user.image + "," +
+    user.nickname + "," +
+    user.verified + "," +
+    user.deleted
 }
