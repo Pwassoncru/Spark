@@ -1,1 +1,3 @@
-case class LinkedPost(post : Post, user : User)
+object LinkedPostUtils {
+  case class LinkedPost(post : Post, user : User)
+}
