@@ -4,6 +4,9 @@ import org.apache.kafka.clients.producer
 
 
 object API {
+
+  println("producer are starting")
+
   val config = new Properties()
   config.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "kafka:9092")
   //config.put("key.serializer", )
@@ -35,7 +38,7 @@ object API {
 
     val postCsv = PostToCsv(post)
 
-    producer.send(new ProducerRecord("posts", null, post.id, postCsv)).get()
+    producer.send(new ProducerRecord("posts", null, post.authors, postCsv)).get()
   }
 
   def create_message(messageId : String, userId : String, targetId : String, text : String) = {
