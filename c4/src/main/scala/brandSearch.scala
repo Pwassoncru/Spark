@@ -21,12 +21,12 @@ object BrandSearch {
       println("Error occured in function parsePeriod")
     else {
       val duration = Instant.now().minus(Duration.ofDays(w.get));
-      val count = countBrandOccurences(brand, duration);
+      val count = countBrandOccurences(brand, duration, fileToReadFrom);
       println("The brand " + brand + " appeared " + count + " times!")
     }
   }
 
-  def loadData(): RDD[Post] = {
+  def loadData(fileToReadFrom : String): RDD[Post] = {
     // create spark configuration and spark context
     val conf = new SparkConf()
       .setAppName("Brand searching")
@@ -67,8 +67,8 @@ object BrandSearch {
   /**
    * Count number of brand occurences
    */
-  def countBrandOccurences(brand : String, period : Instant) : Int = {
-    val arr = loadData().filter(x => x.date.isAfter(period))
+  def countBrandOccurences(brand : String, period : Instant, file : String) : Int = {
+    val arr = loadData(file).filter(x => x.date.isAfter(period))
                         .map(x => x.text.split(" "))
                         .flatMap(x => x)
                         .filter(x => x == brand)
