@@ -18,12 +18,15 @@ libraryDependencies += "org.apache.spark" %% "spark-streaming-flume-assembly" % 
 libraryDependencies += "org.apache.spark" %% "spark-mesos" % "2.3.1"
 libraryDependencies += "org.apache.spark" %% "spark-graphx" % "2.3.1"
 libraryDependencies += "org.apache.spark" %% "spark-catalyst" % "2.3.1"
-libraryDependencies += "org.apache.spark" %% "spark-launcher" % "2.3.1"
+libraryDependencies += "org.apache.spark" %% "spark-launcher" % "2.3.1" */
+
+libraryDependencies += "com.fasterxml.jackson.module" % "jackson-module-scala_2.11" % "2.9.1"
 
 libraryDependencies += "org.apache.spark" %% "spark-core" % "2.3.1"
 libraryDependencies += "org.apache.spark" %% "spark-streaming" % "2.3.1"
-libraryDependencies += "org.apache.spark" % "spark-streaming-kafka-0-10_2.11" % "2.3.1" */
+libraryDependencies += "org.apache.spark" % "spark-streaming-kafka-0-10_2.11" % "2.3.1"
 
 libraryDependencies += "org.apache.kafka" % "kafka_2.11" % "1.0.1"
-libraryDependencies += "org.apache.kafka" % "kafka-streams" % "1.0.1"
+libraryDependencies += "org.apache.kafka" % "kafka-streams" % "1.0.1" excludeAll(
+  ExclusionRule(organization = "com.fasterxml.jackson.core"))
 libraryDependencies += "org.apache.kafka" % "kafka-clients" % "1.0.1"

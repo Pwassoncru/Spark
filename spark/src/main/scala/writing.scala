@@ -9,10 +9,10 @@ import UserUtils._
 
 object RDDStreams {
 
-  /*println("RDD streams are starting")
+  println("RDD streams are starting")
 
   val conf = new SparkConf().setAppName("redirectingKafkaStream").setMaster("local[*]")
-  val sc = new StreamingContext(conf, Seconds(5))
+  val sc = new StreamingContext(conf, Seconds(15))
 
   val config = Map[String,Object](
     "bootstrap.servers" -> "localhost:9092",
@@ -22,14 +22,14 @@ object RDDStreams {
   )
 
   // See how it writes to hdfs => Maybe do 3 streams.
-  val topics = List("sinkPosts", "sinkMessages", "sinkUsers")
+  val topics = List("sinkPosts")
 
   val stream = KafkaUtils.createDirectStream[String,String](
     sc,
     LocationStrategies.PreferConsistent,
     ConsumerStrategies.Subscribe[String,String](topics, config))
 
-  stream.window(Minutes(30)).saveAsTextFiles("saved")
+  stream.saveAsTextFiles("data/posts")
 
-  sc.start()*/
+  sc.start()
 }
