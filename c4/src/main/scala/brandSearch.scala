@@ -13,6 +13,8 @@ object BrandSearch {
     val brand = StdIn.readLine();
     println("Type number of days/months:");
     val period = StdIn.readLine();
+    println("Type in the directory containing all the \"part\" files");
+    val fileToReadFrom = StdIn.readLine() + "/part-*";
 
     val w = parsePeriod(period)
     if (w.isEmpty)
@@ -23,8 +25,6 @@ object BrandSearch {
       println("The brand " + brand + " appeared " + count + " times!")
     }
   }
-
-  val fileToReadFrom = "data/posts/part-*"
 
   def loadData(): RDD[Post] = {
     // create spark configuration and spark context
