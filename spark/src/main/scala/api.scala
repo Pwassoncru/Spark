@@ -43,7 +43,7 @@ object API {
 
     val postCsv = PostToCsv(post)
 
-    producer.send(new ProducerRecord[String,String]("posts", null, post.authorId, postCsv)).get()
+    producer.send(new ProducerRecord[String,String]("posts", null, post.id, postCsv)).get()
   }
 
   def create_message(id : String, userId : String, targetId : String, text : String) = {
