@@ -1,14 +1,9 @@
-import Dependencies._
+name := "spark"
 
-lazy val root = (project in file(".")).
-  settings(
-    inThisBuild(List(
-      organization := "com.example",
-      scalaVersion := "2.12.5",
-      version      := "0.1.0-SNAPSHOT"
-    )),
-    name := "Hello",
-    libraryDependencies ++= Seq(
-      "org.apache.kafka" % "kafka_2.11" % "0.8.0"
-    )
-  )
+version := "1.0"
+
+scalaVersion := "2.11.8"
+
+libraryDependencies += "org.apache.kafka" % "kafka_2.11" % "1.0.1"
+libraryDependencies += "org.apache.kafka" % "kafka-streams" % "1.0.1"
+libraryDependencies += "org.apache.kafka" % "kafka-clients" % "1.0.1"

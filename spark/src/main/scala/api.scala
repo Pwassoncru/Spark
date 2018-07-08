@@ -1,6 +1,11 @@
 
-import java.time
-import org.apache.kafka.clients.producer
+import java.time.Instant
+import org.apache.kafka.clients.producer.{KafkaProducer, ProducerRecord, ProducerConfig}
+import java.util.Properties
+
+import PostUtils._
+import MessageUtils._
+import UserUtils._
 
 
 object API {
@@ -8,10 +13,10 @@ object API {
   println("producer are starting")
 
   val config = new Properties()
-  config.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "kafka:9092")
-  //config.put("key.serializer", )
-  //config.put("value.serializer", )
-  val producer = new KafkaProducer(config)
+  config.put("bootstrap.servers", "localhost:9092")
+  config.put("key.serializer", "org.apache.kafka.common.serialization.StringSerializer")
+  config.put("value.serializer", "org.apache.kafka.common.serialization.StringSerializer")
+  val producer = new KafkaProducer[String,String](config)
 
   def create_user(id : String, nickname : String) = {
     val user = User(
@@ -24,7 +29,7 @@ object API {
 
     val userCsv = UserToCsv(user)
 
-    producer.send(new ProducerRecord("users", null, user.id, userCsv)).get()
+    producer.send(new ProducerRecord[String,String]("users", user.id, userCsv)).get
   }
 
   def create_post(id : String, userId : String, text : String) = {
@@ -38,10 +43,10 @@ object API {
 
     val postCsv = PostToCsv(post)
 
-    producer.send(new ProducerRecord("posts", null, post.authors, postCsv)).get()
+    producer.send(new ProducerRecord[String,String]("posts", null, post.authorId, postCsv)).get()
   }
 
-  def create_message(messageId : String, userId : String, targetId : String, text : String) = {
+  def create_message(id : String, userId : String, targetId : String, text : String) = {
     val message = Message(
       id,
       Instant.now(),
@@ -51,6 +56,6 @@ object API {
 
     val messageCsv = MessageToCsv(message)
 
-    producer.send(new ProducerRecord("messages", null, message.id, messageCsv))
+    producer.send(new ProducerRecord[String,String]("messages", null, message.id, messageCsv))
   }
 }
