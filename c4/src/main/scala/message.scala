@@ -1,4 +1,4 @@
-import java.time
+import java.time.Instant
 
 object MessageUtils {
   case class Message(

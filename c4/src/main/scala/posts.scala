@@ -1,3 +1,6 @@
+import java.time.Instant
+import scala.util.Try
+
 object PostUtils {
   case class Post(
     id : String,
@@ -9,14 +12,20 @@ object PostUtils {
 
   def PostToCsv(post : Post) =
     post.id + "," +
-    post.date.toString + ","
+    post.date.toString + "," +
     post.authorId + "," +
     post.image + "," +
-    post.test + "," +
+    post.text + "," +
     post.deleted
 
   def StringToPost(str : String) = {
     val list = str.split(",")
-    Post(list(0), Instant.parse(list(1)), list(2), list(3), list(4), list(5))
+    Post(
+      list(0),
+      Instant.parse(list(1)),
+      list(2),
+      list(3),
+      list(4),
+      Try(list(5).toBoolean).getOrElse(false))
   }
 }

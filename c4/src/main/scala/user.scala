@@ -1,4 +1,5 @@
-import java.time
+import java.time.Instant
+import scala.util.Try
 
 object UserUtils {
   case class User(
@@ -9,9 +10,9 @@ object UserUtils {
     verified : Boolean,
     deleted : Boolean)
 
-  def UserToCsv(user : String) = 
+  def UserToCsv(user : User) = 
     user.id + "," +
-    user.date.toString + ","
+    user.date.toString + "," +
     user.image + "," +
     user.nickname + "," +
     user.verified + "," +
@@ -19,6 +20,11 @@ object UserUtils {
 
   def StringToUser(str : String) = {
     val list = str.split(",")
-    User(list(0), Instant.parse(list(1)), list(2), list(3), list(4), list(5))
+    User(
+      list(0),
+      Instant.parse(list(1)),
+      list(2), list(3),
+      Try(list(4).toBoolean).getOrElse(false),
+      Try(list(5).toBoolean).getOrElse(false))
   }
 }
