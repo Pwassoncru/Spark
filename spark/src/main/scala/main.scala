@@ -6,6 +6,7 @@ object Main {
   def main(args : Array[String]) : Unit = {
     val api = API
     val streams = Streams
+    val hdfsWriter = RDDStreams
 
     API.create_user("user0", "Gebb")
     API.create_user("user1", "ln")

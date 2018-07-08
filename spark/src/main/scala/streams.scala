@@ -55,15 +55,5 @@ object Streams {
   MessagesByKey.to("sinkMessages")
 
   val streams = new KafkaStreams(streamBuilder.build(), config)
-
-  /*val conf = new SparkConf().setAppName("redirectingKafkaStream")
-  val sc = new StreamingContext(conf, Seconds(10))
-  val test = KafkaUtils.createDirectStream[String,String](
-    sc,
-    PreferConsistent,
-    Subscribe[String,String]("sinkPosts", config))
-
-
-  sc.start()*/
   streams.start()
 }
